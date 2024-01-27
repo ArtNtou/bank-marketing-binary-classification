@@ -7,6 +7,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score, classification_report
 
+from data_transformation import test_transformation
+from analysis_plots import confusion_plots
+
 matplotlib.use('Qt5Agg')
 
 # fetch dataset
@@ -92,7 +95,7 @@ y_train_sc = dtrenc_sc['y']
 log_model = model_functions.logistic_train(X_train_sc, y_train_sc)
 
 # make the same transformation for testing, except removing outliers as we have to predict for all values
-X_test_sc, y_test_sc = model_functions.test_transformation(X_test, y_test, True, month_dict, dictionary, binary_columns,
+X_test_sc, y_test_sc = test_transformation(X_test, y_test, True, month_dict, dictionary, binary_columns,
                                                            dictionary_edu, categorical_columns)
 
 # predict for training and test set
@@ -101,7 +104,7 @@ y_pred_log_train, y_pred_log_test = model_functions.model_predict(log_model, X_t
 # accuracy_score(y_pred_log_test,y_test_sc)
 print(classification_report(y_pred_log_test, y_test_sc))
 
-log_cm = model_functions.confusion_plots(y_train_sc, y_test_sc, y_pred_log_train, y_pred_log_test)
+log_cm = confusion_plots(y_train_sc, y_test_sc, y_pred_log_train, y_pred_log_test)
 
 # ######XGBoost
 
@@ -109,7 +112,7 @@ log_cm = model_functions.confusion_plots(y_train_sc, y_test_sc, y_pred_log_train
 xgb_model = model_functions.xgboost_train(X_train, y_train)
 
 # make the same transformation for testing, except removing outliers as we have to predict for all values
-X_test, y_test = model_functions.test_transformation(X_test, y_test, False, month_dict, dictionary, binary_columns,
+X_test, y_test = test_transformation(X_test, y_test, False, month_dict, dictionary, binary_columns,
                                                      dictionary_edu, categorical_columns)
 
 # predict for training and test set
@@ -118,7 +121,7 @@ y_pred_xgb_train, y_pred_xgb_test = model_functions.model_predict(xgb_model, X_t
 accuracy_score(y_pred_xgb_test, y_test)
 print(classification_report(y_pred_xgb_test, y_test))
 
-xgb_cm = model_functions.confusion_plots(y_train, y_test, y_pred_xgb_train, y_pred_xgb_test)
+xgb_cm = confusion_plots(y_train, y_test, y_pred_xgb_train, y_pred_xgb_test)
 
 # Get feature importance scores
 feature_importance = xgb_model.feature_importances_
