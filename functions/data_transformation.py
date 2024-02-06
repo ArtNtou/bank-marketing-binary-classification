@@ -4,22 +4,20 @@ from sklearn.preprocessing import StandardScaler
 
 def train_transformation(train_data):
     """
-        Preprocess train set
+        Preprocesses the training set. The dictionary that it returns is similar
+            - transformation (dictionary): contains information about the transformations
+            - month_dict (dictionary): information about months from string to float
+            - binary_transformation (dictionary): strings to integer
+            - binary_columns (list): binary columns
+            - education_transformation (dictionary): strings about education to integer
+            - categorical columns (list): categorical columns that needed transformations
 
-        Parameters:
-          - train_data (dataframe): train dataset with features and label
+        :param train_data: Training dataset with features and labels.
+        :type train_data: pandas.DataFrame
 
-        Return:
-          - X_test (dataframe): contains features of test dateset
-          - y_test (pandas Series): binary label of test dataset
-          - transformation (dictionary): contains information about the transformations
-              - month_dict (dictionary): information about months from string to float
-              - binary_transformation (dictionary): strings to integer
-              - binary_columns (list): binary columns
-              - education_transformation (dictionary): strings about education to integer
-              - categorical columns (list): categorical columns that needed transformations
-
-        """
+        :return: Transformed features of the training dataset, dictionary containing information about transformations.
+        :rtype: (pandas.DataFrame, dict)
+    """
 
     # fill na values in text columns with unknown
     train_data = train_data.fillna("unknown")
@@ -77,23 +75,19 @@ def train_transformation(train_data):
 # preprocessing on test data
 def test_transformation(X_test, y_test, scaling, transformations):
     """
-    Does the same transformation of training for the test dataset
+    Does the same transformation of training for the test dataset.
 
-    Parameters:
-      - X_test (dataframe): contains features of test dateset
-      - y_test (pandas Series): binary label of test dataset
-      - transformations (dictionary): contains information about the transformations
-          - scaler_dict (dictionary): contains scaler model and the columns needed to be scaled
-          - month_dict (dictionary): information about months from string to float
-          - binary_transformation (dictionary): strings to integer
-          - binary_columns (list): binary columns
-          - education_transformation (dictionary): strings about education to integer
-          - categorical columns (list): categorical columns that needed transformations
+    :param X_test: Features of the test dataset.
+    :type X_test: pandas.DataFrame
+    :param y_test: Binary label of the test dataset.
+    :type y_test: pandas.Series
+    :param scaling: Indicates whether scaling is required.
+    :type scaling: bool
+    :param transformations: Contains information about the transformations.
+    :type transformations: dict
 
-    Return:
-      - X_test (DataFrame): transformed features ready to be used for prediction
-      - y_test (pandas Series): label
-
+    :return: Transformed features of the test dataset, label.
+    :rtype: (pandas.DataFrame, pandas.Series)
     """
 
     # merge them for analysis

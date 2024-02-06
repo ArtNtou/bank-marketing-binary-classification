@@ -9,15 +9,15 @@ matplotlib.use('Qt5Agg')
 
 def xgboost_train(X_train, y_train):
     """
-    Function that train finds the best possible xgboost model and trains it
+    Trains an XGBoost model with hyperparameter tuning and validation set.
 
-    Parameters:
-        - X_train_sc (dataframe): features of training set
-        - y_train_sc (pandas Series): label of classification of training set
+    :param X_train: Features of the training set.
+    :type X_train: pandas.DataFrame
+    :param y_train: Labels of the training set.
+    :type y_train: pandas.Series
 
-    Return:
-        - best_xgb :
-
+    :return: The best trained XGBoost model.
+    :rtype: xgb.XGBClassifier
     """
 
     # XGBoost with validation set
@@ -53,15 +53,15 @@ def xgboost_train(X_train, y_train):
 
 def logistic_train(X_train_sc, y_train_sc):
     """
-    Function that train finds the best possible logistic regression and trains it
+    Trains a logistic regression model with hyperparameter tuning.
 
-    Parameters:
-        - X_train_sc (dataframe): features of training set
-        - y_train_sc (pandas Series): label of classification of training set
+    :param X_train_sc: Features of the training set.
+    :type X_train_sc: pandas.DataFrame
+    :param y_train_sc: Labels of the training set.
+    :type y_train_sc: pandas.Series
 
-    Return:
-        - best_logreg (LogisticRegression): a logistic regression model
-
+    :return: The best trained logistic regression model.
+    :rtype: sklearn.linear_model.LogisticRegression
     """
 
     # Hyperparameter tuning for Logistic Regression
@@ -85,15 +85,17 @@ def logistic_train(X_train_sc, y_train_sc):
 # get predictions
 def model_predict(model, X_train, X_test):
     """
-    Function make predictions based on features
+    Makes predictions based on features.
 
-    Parameters:
-        - X_train (dataframe): features of training set
-        - X_test (dataframe): features of test set
+    :param model: Trained model.
+    :type model: object
+    :param X_train: Features of the training set.
+    :type X_train: pandas.DataFrame
+    :param X_test: Features of the test set.
+    :type X_test: pandas.DataFrame
 
-    Return:
-        - best_logreg (LogisticRegression): a logistic regression model
-
+    :return: Predictions for the training and test sets.
+    :rtype: tuple
     """
 
     y_pred_train = model.predict(X_train)

@@ -7,17 +7,19 @@ from sklearn.metrics import roc_auc_score, confusion_matrix, roc_curve
 # get confusion matrix and plot ROC graphs and AUC values
 def confusion_plots(y_train, y_test, y_pred_train, y_pred_test):
     """
-    Function that train finds the best possible logistic regression and trains it
+    Computes confusion matrix, plots ROC curves, and calculates AUC values.
 
-    Parameters:
-        - y_train (pandas Series): label of training set
-        - y_test (pandas Series): label of test set
-        - y_pred_train (pandas Series): predicted label of training set
-        - y_pred_test (pandas Series): predicted label of test set
+    :param y_train: True labels of the training set.
+    :type y_train: pandas.Series
+    :param y_test: True labels of the test set.
+    :type y_test: pandas.Series
+    :param y_pred_train: Predicted labels of the training set.
+    :type y_pred_train: pandas.Series
+    :param y_pred_test: Predicted labels of the test set.
+    :type y_pred_test: pandas.Series
 
-    Return:
-        - best_logreg (LogisticRegression): a logistic regression model
-
+    :return: Confusion matrix.
+    :rtype: numpy.ndarray
     """
 
     # ROC Curve and AUC Curve
